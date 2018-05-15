@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container">
+        <br>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Product name</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+              <tr class="table-light">
+                <th scope="row">{{product.name}}</th>
+                <td>{{product.price}}</td>
+                <td><a href="{{ url_for ('delete_shopping_card')}}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        
+{% include 'footer.html' %}
+{% endblock %}

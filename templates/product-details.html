@@ -1,0 +1,143 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    .index-content a:hover{
+    color:black;
+    text-decoration:none;
+}
+.index-content{
+    margin-bottom:5px;
+    padding:5px 0px;
+    padding-top: 5px;
+    
+}
+
+.index-content .row{
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+
+article
+{
+    padding-bottom: 5px;
+    
+}
+
+.index-content a{
+    color: black;
+    
+}
+.index-content .card{
+    background-color: #FFFFFF;
+    padding:0;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius:4px;
+    box-shadow: 0 4px 5px 0 rgba(39, 39, 39, 0.14), 0 1px 10px 0 rgba(39, 39, 39, 0.14), 0 2px 4px -1px rgba(39, 39, 39, 0.14);
+    position: relative;
+    top: 0;
+    left: 0;
+}
+.index-content .card:hover{
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);
+    color:black;
+}
+.index-content .card img{
+    width:100%;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    height: 200px;
+    object-fit: cover;
+    position: relative;
+    top: 0;
+    left: 0;
+    
+}
+.index-content .card .cross-icone{
+    position:absolute; 
+    top:5px; 
+    left:5px; 
+    height:25px; 
+    width:25px
+}
+.index-content .card .cross-icone:hover{
+    color: brown;
+}
+.index-content .card.delete-link:hover{
+    color: brown;
+}
+.index-content .card h4{
+    margin:20px;
+    
+}
+.index-content .card p{
+    margin:20px;
+}
+.index-content .card h6{
+    margin:10px;
+}
+.index-content .card strong{
+    margin:10px;
+}
+
+
+@media (max-width: 768px) {
+
+    .index-content .col-lg-4 {
+        margin-top: 20px;
+    }
+}
+</style>
+
+<div class="container">
+    <hr>
+    <img style="height: 400px; width: 100%; object-fit:cover;" class="img img-responsive article-img" src="{{ url_for('uploaded_file', filename=product.image ) }}">
+    <h2>{{product.name}}</h2>
+    <p>{{product.description}}</p>
+    
+    <h5>Category: {{product.category}}</h5><br>
+    <h5>Price: {{product.price}} DT</h5>
+    
+    <hr>
+    <a href="{{ url_for('products') }}"><button style="border-radius: 50px; width:150px; height:60px" type="button" class="btn btn-lg ml-auto btn-success">Buy</button></a>
+    <a href="{{ url_for('add_shopping_card', id=product.id) }}"><button style="border-radius: 50px; width:150px; height:60px" type="button" class="btn btn-lg btn-secondary">Add to cart</button></a>
+    <hr>
+    <div  class="jumbotron">
+        <div class="index-content">
+            <div class="container">
+                <h6>Similar Products</h6>
+                    <hr>
+                <div class="row"> 
+                    {% for product in similar_products %}
+        
+                        <article class="col-md-4">
+                            <figure class="col-lg-14">
+                        
+                            <div class="card">
+                                <a href="{{ url_for('product_details', id=product.id) }}">
+                                    <img src="{{ url_for('uploaded_file', filename=product.image ) }}">
+                                </a>
+                                <a class="delete-link" href="{{ url_for('delete_product', id=product.id) }}">
+                                    <img class="cross-icone" src="{{ url_for('static', filename='cross.png') }}">
+                                </a>
+                                <a href="{{ url_for('product_details', id=product.id) }}">
+                                <h4>{{product.name[:50]+ "..."}}</h4>
+                                <hr>
+                                <h6>Category: {{product.category}}</h6>
+                                <strong>Price: {{product.price}} DT</strong>
+                                </a>
+                            </div>
+                        </figure>
+                    </article>
+                        
+                    
+                    {% endfor %}
+                </div>
+            </div>
+                        
+        </div>
+        
+    </div>
+</div>
+{% include 'footer.html' %}
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    .col-md-3  button{
+    border-radius: 0px;
+    width: 100%;
+}
+
+.hero{
+    height: 40rem;
+    background-position: center;
+    background: url('./static/back_g.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    align-content: center;
+    align-self: center;
+    
+}
+
+.hero-row
+{
+    padding: 4%;
+    width: 100%;
+}
+
+
+.hero .btn-get-started {
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 16px ;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 8px 28px;
+    border-radius: 50px;
+    transition: 0.5s;
+    margin: 10px;
+    border: 2px solid rgb(255, 255, 255);
+    background-color: #566d9e; 
+    color: rgb(255, 255, 255); 
+     
+  }
+
+
+  .hero .btn-get-started:hover {
+    background: #446188;
+    border: 2px solid #446188;
+  }
+  
+.h1{
+    border: 2px solid rgb(255, 255, 255); 
+}
+.hero-row h1 {
+    margin: 30px 0 10px 0;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 56px;
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+}
+
+.hero-row p {
+    font-size: 18px;
+    
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+}
+
+
+
+</style>
+<div class="hero">                            
+      <div class="hero-row">
+        <br><br><br><br><br><br>
+        <form method="post" action="{{ url_for ('search') }}">
+        <div style="padding-left:350px;" class="container" align="center">
+            <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="word" placeholder="Search word or phrase" id="word">
+                    </div>
+                    <div class="col-sm-0">
+                        <input type="submit" class="btn btn-primary" value="Search">
+                    </div>
+            </div>
+        </div>
+        </form>
+
+        <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
+          <h1 class="carousel-title">Biggest online marketplace</h1>
+          <p class="textLeft carousel-text">Choose your product easier</p>
+          <a href="{{ url_for('products') }}"><button class="btn-get-started">Discover</button></a>
+        </div>
+      </div>
+    </div>
+</div>
+{% include 'footer.html' %}
+{% endblock %}

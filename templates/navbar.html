@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">ISG</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('products') }}">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('add_product') }}">Add Product</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+          {% if session['logged_in'] %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('shopping_card') }}">
+              <img class="login-icone" style="width:25px; height:25px" src="{{ url_for('static', filename='cart.png') }}">
+              <span class="badge badge-pill badge-light">0 Products</span>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if session['logged_in'] %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('products') }}">welcome {{session['username']}}</a>
+          </li>
+          {% endif %}
+
+            {% if not session['logged_in'] %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('signup') }}">Sign up</a>
+            </li>
+            {% endif %}
+
+            {% if not session['logged_in'] %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('signin') }}">Sign in</a>
+            </li>
+            {% endif %}
+
+            {% if session['logged_in'] %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('signout') }}">Sign out</a>
+            </li>
+            {% endif %}
+      </ul>
+    </div>
+  </nav>

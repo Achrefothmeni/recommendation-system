@@ -1,0 +1,165 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    .index-content a:hover{
+    color:black;
+    text-decoration:none;
+}
+.index-content{
+    margin-bottom:20px;
+    padding:50px 0px;
+    padding-top: 10px;
+    
+}
+
+.index-content .row{
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+
+article
+{
+    padding-bottom: 14px;
+    
+}
+
+.index-content a{
+    color: black;
+    
+}
+.index-content .card{
+    background-color: #FFFFFF;
+    padding:0;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius:4px;
+    box-shadow: 0 4px 5px 0 rgba(39, 39, 39, 0.14), 0 1px 10px 0 rgba(39, 39, 39, 0.14), 0 2px 4px -1px rgba(39, 39, 39, 0.14);
+    position: relative;
+    top: 0;
+    left: 0;
+}
+.index-content .card:hover{
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);
+    color:black;
+}
+.index-content .card img{
+    width:100%;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    height: 200px;
+    object-fit: cover;
+    position: relative;
+    top: 0;
+    left: 0;
+    
+}
+.index-content .card .cross-icone{
+    position:absolute; 
+    top:5px; 
+    left:5px; 
+    height:25px; 
+    width:25px
+}
+.index-content .card .cross-icone:hover{
+    color: brown;
+}
+.index-content .card.delete-link:hover{
+    color: brown;
+}
+.index-content .card h4{
+    margin:20px;
+    
+}
+.index-content .card p{
+    margin:20px;
+}
+.index-content .card h6{
+    margin:10px;
+}
+.index-content .card strong{
+    margin:10px;
+}
+
+
+@media (max-width: 768px) {
+
+    .index-content .col-lg-4 {
+        margin-top: 20px;
+    }
+}
+</style>
+<div class="container">
+        <div class="jumbotron" style="margin-top:2em;">
+            <legend>Filtred search</legend>
+            <form method="post" action="{{ url_for ('products') }}">
+                <div class="row">
+                    <div class="col-md-5">
+                            <div class="form-group">
+                                    <select class="form-control" name="category" id="select">
+                                      <option value="none">Choose category..</option>
+                                      <option value="Computer">Computer</option>
+                                      <option value="Smart Phone">Smart Phone</option>
+                                      <option value="Car">Car</option>
+                                      <option value="Motor cycle">Motor cycle</option>
+                                      <option value="Books">Books</option>
+                                    </select>
+                            </div>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="word" placeholder="Search word or phrase" id="word">
+                    </div>
+            </div>
+            <br>
+            <input type="submit" class="btn btn-primary" value="Search"> <span class="badge badge-pill badge-light">{{nb}} Products found</span>
+            </form>
+        </div>
+    </div>
+
+
+{% if not nb  %}
+<br> 
+<div class="container" align="center">
+    <img style="object-fit:cover; width: 60%; padding-bottom: 30px;" class="img img-responsive" src="{{ url_for('static', filename='no-result.png') }}">
+</div>
+{% else %}
+
+<div class="index-content">
+    <div class="container">
+        <h6>Products</h6>
+            <hr>
+        <div class="row"> 
+            {% for product in products %}
+
+                <article class="col-md-4">
+                    <figure class="col-lg-14">
+                
+                    <div class="card">
+                        <a href="{{ url_for('product_details', id=product.id) }}">
+                            <img src="{{ url_for('uploaded_file', filename=product.image ) }}">
+                        </a>
+                        <a class="delete-link" href="{{ url_for('delete_product', id=product.id) }}">
+                            <img class="cross-icone" src="{{ url_for('static', filename='cross.png') }}">
+                        </a>
+                        <a href="{{ url_for('product_details', id=product.id) }}">
+                        <h4>{{product.name[:50]+ "..."}}</h4>
+                        <hr>
+                        <h6>Category: {{product.category}}</h6>
+                        <strong>Price: {{product.price}} DT</strong>
+                        </a>
+                    </div>
+                </figure>
+            </article>
+                
+            
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="container" align="center">
+        <img style="object-fit:cover; width: 60%;" class="img img-responsive" src="">
+    </div>
+    
+</div>
+{% endif %}
+{% include 'footer.html' %}
+{% endblock %}

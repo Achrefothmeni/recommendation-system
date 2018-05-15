@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    .form-group{
+      text-align: left;
+    }
+    .container{
+      margin-top: 50px;
+    }
+    </style>
+        {% if err %}
+        <div class="container" align="center">
+        <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>You have to be logged in</strong>, <a class="nav-link" href="{{ url_for('signin') }}">Sign in</a>
+        </div>
+        <img class="cross-icone" src="{{ url_for('static', filename='err.png') }}">
+
+      </div>
+        {% else %}
+    
+    
+    <form action="{{ url_for('add_product') }}" method="POST" enctype="multipart/form-data">
+        <fieldset>
+          <div class="container" align="center">
+            <div class="col-md-6">
+                <div class="jumbotron">
+            <legend>Add Products</legend>
+          <div class="form-group">
+            <label class="label" for="name">Name</label>
+            <input type="text" name="name" class="form-control" id="name"  placeholder="Enter the name of your product">
+          </div>
+          <div class="form-group">
+              <label class="label" for="description">Description</label>
+              <textarea name="description" class="form-control" id="description" placeholder="Describe you event" rows="5"></textarea> 
+         </div>
+         <div class="form-group">
+            <label for="select">Category</label>
+            <select class="form-control" name="category" id="select">
+              <option value="none">Choose..</option>
+              <option value="Computer">Computer</option>
+              <option value="Smart Phone">Smart Phone</option>
+              <option value="Car">Car</option>
+              <option value="Motor cycle">Motor cycle</option>
+              <option value="Books">Books</option>
+            </select>
+          </div>
+          <div class="form-group">
+              <label class="label" for="price">Price</label>
+              <input type="text" name="price" class="form-control" id="price"  placeholder="Enter the price of your product">
+          </div>  
+          <div class="form-group">
+              <label for="exampleInputFile">Image</label>
+              <input type="file" class="form-control-file" name="file" id="file" aria-describedby="fileHelp">
+              <small id="file" class="form-text text-muted">Choose an image for your product.</small>
+          </div>
+         <input type="submit" class="btn btn-lg btn-success" value="Save">
+         <button type="reset" class="btn btn-lg btn-secondary">Reset</button>
+        </div>
+        </div>
+          </div>
+        </fieldset>
+    </form>
+    {%endif%}
+{% include 'footer.html' %}
+{%endblock%}
