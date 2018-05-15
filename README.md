@@ -1,1 +1,1 @@
-"# recommendation-system" 
+a similarity recommendation engine based on contents that use advanced algorithms and nlp to recognize similar products
